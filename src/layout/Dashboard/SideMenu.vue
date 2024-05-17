@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
+
+const emit = defineEmits(['showComponent'])
 const menus = ref([
     {
         label: 'Data Utama',
@@ -8,27 +10,27 @@ const menus = ref([
             {
                 icon: 'home',
                 label: 'Dashboard',
-                component: 'Sekolah'
+                url: '/'
             },
             {
                 icon: 'city',
                 label: 'Data Sekolah',
-                component: 'Home'
+                url: '/sekolah'
             },
             {
                 icon: 'google-classroom',
                 label: 'Data Rombel',
-                component: 'Rombel'
+                url: '#'
             },
             {
                 icon: 'account-tie',
                 label: 'Data Guru',
-                component: 'Guru'
+                url: '#'
             },
             {
                 icon: 'human-child',
                 label: 'Data Siswa',
-                component: 'Siswa',
+                url: '#',
                 separator: true
             },
 
@@ -50,31 +52,24 @@ const menus = ref([
     }
     
 ])
+
+
 </script>
 
 <template>
     <div>
         <h1 class="text-2xl bg-white font-bold text-white text-center bg-opacity-20 py-6 uppercase">Rapor SD</h1>
         
-        <template
-            v-for="(kategori, k) in menus" :key=k
-        >
-            <el-divider>{{ kategori.label }}</el-divider>
-            <el-menu
-                active-text-color="lime"
-                text-color="white"
-                background-color="transparent"
-            >
-            <template v-for="(menu,m) in kategori.items" :key="m">
-                <el-menu-item
-                    
-                >
-                    <Icon :icon="`mdi:${menu.icon}`" class="mr-1" />
-                    <span>{{ menu.label }}</span>
-                </el-menu-item>
-            </template>
-        </el-menu>
-        </template>
-        
+        <div >
+            <div class="kategori" v-for="(category, c) in menus" :key="c">
+                <h3 class="p-4 mt-2 bg-opacity-20 uppercase text-slate-500 tracking-wide font-bold bg-white">{{ category.label }}</h3>
+                <div class="grid grid-cols-1 gap-2 p-2">
+                    <RouterLink v-for="(menu,m) in category.items" exact-active-class="text-red-500" active-class="text-yellow-500" :key="m" :to="menu.url" class="flex items-center text-white gap-1">
+                        <Icon :icon="`mdi:${menu.icon}`" />
+                        {{ menu.label }}
+                    </RouterLink>
+                </div>
+            </div>
+        </div>
     </div>
 </template>

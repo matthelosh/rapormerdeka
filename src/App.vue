@@ -6,7 +6,7 @@ import { defineAsyncComponent, ref } from 'vue';
 import { Icon } from '@iconify/vue'
 
 const auth = ref(true)
-const Dashboard = defineAsyncComponent(() => import('./components/Dashboard/Layout.vue'))
+const Dashboard = defineAsyncComponent(() => import('./layout/Dashboard/Layout.vue'))
 const Login = defineAsyncComponent(() => import('./components/Login.vue'))
 </script>
 
